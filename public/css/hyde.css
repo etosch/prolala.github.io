@@ -73,10 +73,18 @@ a {
 a strong {
   color: inherit;
 }
+.content a {
+  border-bottom: 2px solid #ccc;
+}
 /* `:focus` is linked to `:hover` for basic accessibility */
 a:hover,
 a:focus {
   text-decoration: underline;
+}
+.content a:hover,
+.content a:focus {
+  text-decoration: none;
+  border-bottom: 2px solid #21556b;
 }
 
 /* Headings */
@@ -118,6 +126,7 @@ strong {
 ul, ol, dl {
   margin-top: 0;
   margin-bottom: 1rem;
+  padding-left: 1rem;
 }
 
 dt {
