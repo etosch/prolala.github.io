@@ -1,0 +1,1 @@
+A website for the ProLaLa workshop, using the [Jekyll](http://jekyllrb.com) static site generator and the [Hyde](https://github.com/poole/hyde) template.
