@@ -5,7 +5,7 @@ title: Workshop charter
 
 {:.message}
 At the intersection of Law and Computer Science, the craft of building
-programs for automating the application of regulations heavily involves
+programs for automating the application of regulations engages closely with
 programming language design. Indeed, legal reasoning breaks traditional
 CS abstractions and needs domain-specific tooling for efficient and
 precise application development.
