@@ -10,12 +10,29 @@
     
     <style>
       .box {
-        width: 2px;
-        height: 2px;
-        border: 1px;
-        border-color: black;
-        background-color: black;
+        width: 10px;
+        height: 10px;
+        border: 1px solid blue;
+        display: inline-block;
+        background-color: white;
       }
+
+      td {
+        width: 6px;
+        height:6px;
+        padding:0px;
+      }
+
+      tr {
+        padding:0px;
+        height:6px;
+      }
+
+      table {
+        padding:0px;
+        width:20px;
+      }
+
     </style>
 
     <script>
@@ -107,6 +124,8 @@
       const quid_cookie = "qids";
 
       function get_questions() {
+        document.getElementById("check-name22").style.backgroundColor = 'black';
+
           if (cookieExists(quid_cookie)) {
               return JSON.parse(getCookie(quid_cookie));
           } else {
@@ -148,10 +167,14 @@
           let txt = textarea.value;
           //textarea.style.filter = "invert(100)";
           let box = document.getElementById("box" + id);
+          let checkbox = document.getElementById("check-name"+id);
           if (txt !=""){
             box.style.filter = "invert(100)";
+            checkbox.style.backgroundColor = 'black';
           } else {
             box.style.filter = "invert(0)";
+            checkbox.style.backgroundColor = 'white';
+
           }
           setCookie(nameid, txt);
         }
@@ -174,10 +197,29 @@
   <body>
 
     <header class="container">
-    <div class="text-center navbar fixed-top mb-5 bg-secondary">
+    <div class="text-center navbar fixed-top mb-5 bg-secondary text-white px-2">
       <div class="row">
         <h1>Attendee Bingo/Scavenger Hunt</h1> 
-        <div><span class="box"></span></div></div>
+          <table>
+            <tr>
+              <td><span class="box" id="check-name11"></span></td>
+              <td><span class="box" id="check-name12"></span></td>
+              <td><span class="box" id="check-name13"></span>   </td>
+            </tr>
+            <tr>
+              <td><span class="box" id="check-name21"></span></td>
+              <td><span class="box" id="check-name22"></span></td>
+              <td><span class="box" id="check-name23"></span>  </td>
+            </tr>
+            <tr>
+              <td><span class="box" id="check-name21"></span></td>
+              <td><span class="box" id="check-name22"></span></td>
+              <td><span class="box" id="check-name23"></span></td>
+            </tr>
+
+          </table>
+        
+      </div>
       </div>
 </header>
 
