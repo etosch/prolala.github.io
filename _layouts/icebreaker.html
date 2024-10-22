@@ -2,12 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.4">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ProLaLa@SPLASH 2024 Bingo/Scavenger Hunt</title>
     <!-- <link href="./hyde.css" rel="stylesheet" type="text/css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
+    <style>
+      .box {
+        width: 2px;
+        height: 2px;
+        border: 1px;
+        border-color: black;
+        background-color: black;
+      }
+    </style>
 
     <script>
       var questions = [
@@ -162,23 +171,16 @@
         }
     </script>
   </head>
-  <body class=".container">
+  <body>
 
-    <h1 class="text-center">Attendee Bingo/Scavenger Hunt</h1>
-    <!-- <div class="card">
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#instructionsData" aria-expanded="false" aria-controls="instructionsData">
-        Instructions
-      </button>
-      <div class="collapse" id="instructionsData">
-        <div class="card card-body">
-          <ul>
-      <li>Find someone in attendance at ProLaLa (in-person or online) or a co-located event who satisfies the criterion in each box.</li>
-      <li>One name per box.</li>
-      <li>Names may only be used once (your objective is to talk to at least eight people!)</li>
-    </ul>
-    </div>
-  </div>
-  </div> -->
+    <header class="container">
+    <div class="text-center navbar navbar-fixed-top">
+      <div class="row">
+        <h1>Attendee Bingo/Scavenger Hunt</h1> 
+        <div><span class="box"></span></div>
+      </div>
+      </div>
+</header>
 
     <div class="container-fluid">
         <div class="row">
