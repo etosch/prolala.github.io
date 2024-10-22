@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4">
+    <title>ProLaLa@SPLASH 2024 Bingo/Scavenger Hunt</title>
+    <!-- <link href="./hyde.css" rel="stylesheet" type="text/css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+
+    <script>
+      var questions = [
+      "I am attending remotely from one time zone away. ",
+      "I am attending remotely from two time zones away. ",
+      "I am attending remotely from three time zones away. ",
+      "I am attending remotely from four or more time zones away. ",
+      "I had to acquire a visa to attend this workshop in person.",
+      "I drove or took public transit to attend this workshop in person. ",
+      "Funding agencies in the country where I work have programs to foster collaboration between lawyers and computer scientists.",
+      "My most advanced degree in law is at the undergraduate level.",
+      "I have degrees in both law and computer science.",
+      "I have a non-CS STEM undergraduate degree and a law degree.",
+      "My undergraduate degree is neither in STEM nor philosophy and I have an advanced degree in computer science.",
+      "My most advanced degree is an undergraduate degree. ",
+      "I am a current undergraduate student. ",
+      "I do not have a college degree and I am not currently a student. ",
+      "I practice law at a non-profit.",
+      "I practice law at a startup.",
+      "I practice law at a government agency.",
+      "I practice law across two countries.",
+      "I work as a software engineer.",
+      "I am an academic researcher.",
+      "I work on a regulatory compliance team.",
+      "I have drafted policy documents as part of my job. ",
+      "I have published in a SIGPLAN proceedings or journal. ",
+      "I have published in a law review.",
+      "I have written legislation."
+      ];
+
+      // https://www.w3schools.com/js/js_cookies.asp
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      function setCookie(cname, cvalue) {
+        const d = new Date();
+        d.setTime(d.getTime() + (90 * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Strict;";
+      }
+      // /end
+
+      // optimized fy shuffle
+      // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+      function shuffleArray(array) {
+          for (var i = array.length - 1; i >= 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              var temp = array[i];
+              array[i] = array[j];
+              array[j] = temp;
+          }
+      }
+
+      function cookieExists(cname) {
+        return getCookie(cname) != "" && getCookie(cname) != 0;
+      }
+
+      const quid_cookie = "qids";
+
+      function get_questions() {
+          if (cookieExists(quid_cookie)) {
+              return JSON.parse(getCookie(quid_cookie));
+          } else {
+              shuffleArray(questions);
+              quids = questions.slice(0,9);
+              setCookie(quid_cookie, JSON.stringify(quids));
+              return quids;
+          }
+      }
+      
+      function set_questions() {
+            let questions = get_questions();
+            for (const [i, qtext] of questions.entries()) {
+                let row = i % 3 + 1;
+                let col = Math.floor(i / 3) + 1;
+                if (row === 2 && col === 2) {
+                  continue;
+                }
+                let qid = `q${row}${col}`;
+                var qarea = document.getElementById(qid);
+                qarea.textContent = qtext;
+
+                let nid = `name${row}${col}`;
+                var txtarea = document.getElementById(nid);
+                if (cookieExists(nid)) {
+                  txtarea.textContent = getCookie(nid);
+                } else if (txtarea != null) {
+                  txtarea.textContent = "";
+                }
+            }
+        }
+
+        function save_names(nameid){
+          let txt = document.getElementById(nameid).value;
+          setCookie(nameid, txt);
+        }
+
+        function resetBoard(){
+          setCookie(quid_cookie, 0);
+          for (const [i, qtext] of questions.entries()) {
+            let row = i % 3 + 1;
+            let col = Math.floor(i / 3) + 1;
+            if (row === 2 && col === 2) {
+              continue;
+            }
+            let nid = `name${row}${col}`;
+            setCookie(nid, 0);
+          }
+          set_questions();
+        }
+    </script>
+  </head>
+  <body class=".container">
+
+    <h1 class="text-center">Attendee Bingo/Scavenger Hunt</h1>
+    <!-- <div class="card">
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#instructionsData" aria-expanded="false" aria-controls="instructionsData">
+        Instructions
+      </button>
+      <div class="collapse" id="instructionsData">
+        <div class="card card-body">
+          <ul>
+      <li>Find someone in attendance at ProLaLa (in-person or online) or a co-located event who satisfies the criterion in each box.</li>
+      <li>One name per box.</li>
+      <li>Names may only be used once (your objective is to talk to at least eight people!)</li>
+    </ul>
+    </div>
+  </div>
+  </div> -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="border col-sm" id="box11"><p id="q11"></p><textarea onchange="save_names('name11');" id="name11"></textarea></div>
+            <div class="border col-sm" id="box12"><p id="q12"></p><textarea id="name12"></textarea></div>
+            <div class="border col-sm" id="box13"><p id="q13"></p><textarea id="name13"></textarea></div>
+        </div>
+        <div class="row">
+            <div class="border col-sm" id="box21"><p id="q21"></p><textarea id="name31"></textarea></div>
+            <div class="border col-sm" id="box22"><p id="q22">Socialization Reprieve!</p></div>
+            <div class="border col-sm" id="box23"><p id="q23"></p><textarea id="name33"></textarea></div>
+        </div>
+        <div class="row">
+            <div class="border col-sm" id="box31"><p id="q31"></p><textarea id="name31"></textarea></div>
+            <div class="border col-sm" id="box32"><p id="q32"></p><textarea id="name32"></textarea></div>
+            <div class="border col-sm" id="box33"><p id="q33"></p><textarea id="name33"></textarea></div>
+        </div>
+        <div class="row mt-5">
+          <button class="text-center" onclick="resetBoard()">Get new board</button>
+        </div>
+      </div>
+
+
+    <script>
+        //https://forums.mobirise.com/discussion/33021/firefox-website-loading-issue
+        // var elm=document.getElementsByTagName("html")[0];
+        // elm.style.display="none";
+        // document.addEventListener("DOMContentLoaded",function(event) {
+        //   elm.style.display="block";
+        //   // window.onload = set_questions;
+        //   set_questions();
+        // });
+        window.onload = set_questions;
+      </script>
+  </body>
+</html>
