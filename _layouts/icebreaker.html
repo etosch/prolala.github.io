@@ -38,6 +38,24 @@
       "I have written legislation."
       ];
 
+      var board = [0, 0, 0, 0, 1, 0, 0, 0, 0];
+
+      function updateBoard(val, row, col) {
+        board[(row-1)*3 + (col-1)] = val;
+      }
+
+      function done() {
+        return ((board[0] == 1 && board[1] == 1 && board[2] == 1) || // across
+                (board[3] == 1 && board[4] == 1 && board[5] == 1) || // across
+                (board[6] == 1 && board[7] == 1 && board[8] == 1) || // across
+                (board[0] == 1 && board[3] == 1 && board[6] == 1) || //down
+                (board[1] == 1 && board[4] == 1 && board[7] == 1) || //down
+                (board[2] == 1 && board[5] == 1 && board[8] == 1) || //down
+                (board[0] == 1 && board[4] == 1 && board[8] == 1) || //diag
+                (board[6] == 1 && board[4] == 1 && board[2] == 1)  //diag
+              );
+        }
+
       // https://www.w3schools.com/js/js_cookies.asp
       function getCookie(cname) {
         let name = cname + "=";
@@ -103,9 +121,12 @@
                 qarea.textContent = qtext;
 
                 let nid = `name${row}${col}`;
+                let boxid = `box${row}${col}`;
                 var txtarea = document.getElementById(nid);
+                var boxarea = document.getElementById(boxid);
                 if (cookieExists(nid)) {
                   txtarea.textContent = getCookie(nid);
+                  boxarea.style.filter = 'invert(100)';
                 } else if (txtarea != null) {
                   txtarea.textContent = "";
                 }
@@ -113,7 +134,16 @@
         }
 
         function save_names(nameid){
-          let txt = document.getElementById(nameid).value;
+          let id = nameid.slice(-2);
+          let textarea = document.getElementById(nameid);
+          let txt = textarea.value;
+          //textarea.style.filter = "invert(100)";
+          let box = document.getElementById("box" + id);
+          if (txt !=""){
+            box.style.filter = "invert(100)";
+          } else {
+            box.style.filter = "invert(0)";
+          }
           setCookie(nameid, txt);
         }
 
@@ -153,18 +183,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="border col-sm" id="box11"><p id="q11"></p><textarea onchange="save_names('name11');" id="name11"></textarea></div>
-            <div class="border col-sm" id="box12"><p id="q12"></p><textarea id="name12"></textarea></div>
-            <div class="border col-sm" id="box13"><p id="q13"></p><textarea id="name13"></textarea></div>
+            <div class="border col-sm" id="box12"><p id="q12"></p><textarea onchange="save_names('name12');" id="name12"></textarea></div>
+            <div class="border col-sm" id="box13"><p id="q13"></p><textarea onchange="save_names('name13');" id="name13"></textarea></div>
         </div>
         <div class="row">
-            <div class="border col-sm" id="box21"><p id="q21"></p><textarea id="name31"></textarea></div>
+            <div class="border col-sm" id="box21"><p id="q21"></p><textarea onchange="save_names('name21');" id="name21"></textarea></div>
             <div class="border col-sm" id="box22"><p id="q22">Socialization Reprieve!</p></div>
-            <div class="border col-sm" id="box23"><p id="q23"></p><textarea id="name33"></textarea></div>
+            <div class="border col-sm" id="box23"><p id="q23"></p><textarea onchange="save_names('name23');" id="name23"></textarea></div>
         </div>
         <div class="row">
-            <div class="border col-sm" id="box31"><p id="q31"></p><textarea id="name31"></textarea></div>
-            <div class="border col-sm" id="box32"><p id="q32"></p><textarea id="name32"></textarea></div>
-            <div class="border col-sm" id="box33"><p id="q33"></p><textarea id="name33"></textarea></div>
+            <div class="border col-sm" id="box31"><p id="q31"></p><textarea onchange="save_names('name31');" id="name31"></textarea></div>
+            <div class="border col-sm" id="box32"><p id="q32"></p><textarea onchange="save_names('name31');" id="name32"></textarea></div>
+            <div class="border col-sm" id="box33"><p id="q33"></p><textarea onchange="save_names('name31');" id="name33"></textarea></div>
         </div>
         <div class="row mt-5">
           <button class="text-center" onclick="resetBoard()">Get new board</button>
